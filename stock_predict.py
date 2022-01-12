@@ -1,7 +1,6 @@
 import streamlit as st
 from datetime import date
 import batdata
-import pystan
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly
 from keras.models import Sequential
