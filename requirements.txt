@@ -5,7 +5,8 @@ matplotlib
 numpy
 pandas
 plotly
-pystan==2.19.1.1
-fbprophet==0.6
+cython
+pystan
+fbprophet
 scikit_learn
 streamlit
