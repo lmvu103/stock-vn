@@ -1,6 +1,6 @@
 batdata
 colorama
-keras=
+keras
 matplotlib
 numpy
 pandas
