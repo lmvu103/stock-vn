@@ -3,6 +3,7 @@ from datetime import date
 import batdata
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly
+import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
