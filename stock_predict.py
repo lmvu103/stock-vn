@@ -4,10 +4,8 @@ import batdata
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly
 import tensorflow as tf
+from tensorflow.keras.layers import Input, Dense, LSTM, Dropout
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
-from keras.layers import Dropout
 from sklearn.metrics import mean_squared_error
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
 from sklearn.metrics import mean_squared_error
