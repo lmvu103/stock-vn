@@ -1,21 +1,18 @@
-import streamlit as st
 from datetime import date
 import batdata
-from fbprophet import Prophet
-from fbprophet.plot import plot_plotly
-import tensorflow as tf
-from tensorflow.keras.layers import Input, Dense, LSTM, Dropout
-from keras.models import Sequential
-from sklearn.metrics import mean_squared_error
-from keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from sklearn.preprocessing import MinMaxScaler
-
-import math
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import streamlit as st
+from keras.layers import Dense
+from keras.layers import Dropout
+from keras.layers import LSTM
+# import pystan
+# from fbprophet import Prophet
+# from fbprophet.plot import plot_plotly
+from keras.models import Sequential
+import keras.callbacks
+from sklearn.preprocessing import MinMaxScaler
 
 START = "20100101"
 TODAY = date.today().strftime('%Y%m%d')
@@ -67,24 +64,25 @@ else:
     st.subheader("1.3 Predict price stock")
 
     if method_predict == "Prophet":
+        st.write('Please choice LSTM')
         df_train = pd.DataFrame()
         df_train['ds'] = df['tradingDate']
         df_train['y'] = df['close']
-        m = Prophet()
-        m.fit(df_train)
-        future = m.make_future_dataframe(periods=period)
-        forecast = m.predict(future)
-
-        st.subheader('Forecast data')
-        st.write(forecast.tail())
-
-        st.write('Forecast data')
-        fig1 = plot_plotly(m, forecast)
-        st.plotly_chart(fig1)
-
-        st.write('Forecast Component')
-        fig2 = m.plot_components(forecast)
-        st.write(fig2)
+        # m = Prophet()
+        # m.fit(df_train)
+        # future = m.make_future_dataframe(periods=period)
+        # forecast = m.predict(future)
+        #
+        # st.subheader('Forecast data')
+        # st.write(forecast.tail())
+        #
+        # st.write('Forecast data')
+        # fig1 = plot_plotly(m, forecast)
+        # st.plotly_chart(fig1)
+        #
+        # st.write('Forecast Component')
+        # fig2 = m.plot_components(forecast)
+        # st.write(fig2)
     elif method_predict == "LSTM":
         data = df.filter(['close'])
         data.reset_index()
@@ -125,7 +123,7 @@ else:
         regressor.add(Dense(units=1))
 
         regressor.compile(optimizer='adam', loss='mean_squared_error')
-        reduce_lr = ReduceLROnPlateau(monitor='val_loss', patience=5)
+        reduce_lr = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', patience=5)
         history = regressor.fit(X_train, Y_train, epochs=5, batch_size=5, validation_data=(X_test, Y_test),
                                 callbacks=[reduce_lr], shuffle=False)
 
